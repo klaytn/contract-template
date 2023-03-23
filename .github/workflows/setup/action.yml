@@ -1,0 +1,25 @@
+name: 'Setup'
+description: 'Setup hardhat and foundry dependencies'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: foundry-rs/foundry-toolchain@v1
+      with:
+        version: nightly
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: "npm"
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    - uses: actions/cache@v3
+      id: cache
+      with:
+        path: "**/node_modules"
+        key: npm-v2-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: npm-v2-
+    - run: npm ci
+      shell: bash
+      if: steps.cache.outputs.cache-hit != 'true'

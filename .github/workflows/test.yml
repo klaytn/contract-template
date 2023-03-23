@@ -1,0 +1,69 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  check-linter:
+    name: Check linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Setup
+        uses: ./.github/workflows/setup
+
+      - name: Run linter
+        run: npm run lint
+
+  check-foundry:
+    name: Check foundry
+    runs-on: ubuntu-latest
+    env:
+      FOUNDRY_PROFILE: ci
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Setup
+        uses: ./.github/workflows/setup
+
+      - name: Run forge build
+        run: |
+          forge --version
+          forge build --sizes
+
+      - name: Run forge tests
+        run: |
+          forge test -vvv
+
+      - name: Run forge coverage tests
+        run: |
+          forge coverage
+
+  check-hardhat:
+    name: Check hardhat
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Setup
+        uses: ./.github/workflows/setup
+
+      - name: Run hardhat test
+        env:
+          REPORT_GAS: 1
+        run: |
+          npx hardhat test
+
+      - name: Run hardhat coverage
+        run: |
+          npx hardhat coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
