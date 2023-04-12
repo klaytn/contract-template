@@ -8,7 +8,7 @@
   },
   "author": "Klaytn Team",
   "license": "ISC",
-  "main": "dist/index.js",
+  "main": "dist/lib/index.js",
   "bugs": {
     "url": "https://github.com/klaytn/contract-template/issues"
   },
@@ -27,15 +27,19 @@
     "lint:sol": "prettier --loglevel warn --ignore-path .gitignore '{contracts,test,script}/**/*.sol' --check && solhint '{contracts,test,script}/**/*.sol'",
     "lint:sol:fix": "prettier --loglevel warn --ignore-path .gitignore '{contracts,test,script}/**/*.sol' --write",
     "watch": "tsc -w",
-    "prepublishOnly": "npm run build"
+    "export:baobab": "npx hardhat export --export export/baobab/index.ts --network baobab",
+    "export:cypress": "npx hardhat export --export export/cypress/index.ts --network cypress",
+    "export": "npm run export:baobab && npm run export:cypress",
+    "prepublishOnly": "npm run export && npm run build"
   },
   "files": [
+    "contracts",
     "dist",
     "LICENSE",
     "README.md"
   ],
   "devDependencies": {
-    "@blukat29/hardhat-utils": "^0.0.5",
+    "@blukat29/hardhat-utils": "^0.0.6",
     "@primitivefi/hardhat-dodoc": "^0.2.3",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",

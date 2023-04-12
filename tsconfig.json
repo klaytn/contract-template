@@ -9,6 +9,12 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["lib/**/*"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "export/**/*",
+    "lib/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

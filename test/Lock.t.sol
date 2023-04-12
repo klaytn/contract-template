@@ -7,8 +7,8 @@ import {Lock} from "contracts/Lock.sol";
 
 contract LockTest is Test {
     Lock public lock;
-    uint256 unlockTime;
-    uint256 unlockAmount;
+    uint256 public unlockTime;
+    uint256 public unlockAmount;
 
     event Withdrawal(uint256 amount, uint256 when);
 

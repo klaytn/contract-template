@@ -38,13 +38,20 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: { apiKey: "DUMMY" },
-  paths: {
-    deployments: "deployments",
-  },
   dodoc: {
     exclude: ["hardhat/", "lib/"],
     runOnCompile: false,
     freshOutput: false,
+  },
+  paths: {
+    deployments: "deployments",
+  },
+  external: {
+    // importing hardhat-deploy from other packages
+    deployments: {
+      baobab: ["@klaytn/contract-template/dist/export/baobab"],
+      cypress: ["@klaytn/contract-template/dist/export/cypress"],
+    },
   },
 };
 

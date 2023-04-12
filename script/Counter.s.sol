@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 import "contracts/Counter.sol";
 
 contract CounterScript is Script {
-    Counter c;
+    Counter public c;
 
     function setUp() public {
         console.log("chainid:", block.chainid);
