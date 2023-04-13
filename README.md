@@ -16,8 +16,8 @@ The directory structure of this template is as follows:
 - `lib/`: library functions to be published to NPM
 - `script/`: scripts to interact with contracts
 - `test/`: unit tests
-- `GETTING-STARTED.md`: developer guide in detail for those willing to contribute (internally and externally)
-- `README-TEMPLATE.md`: user guide
+- `GETTING-STARTED-TEMPLATE.md`: developer guide template
+- `README-TEMPLATE.md`: user guide template
 - `hardhat.config.ts`: hardhat configuration
 - `foundry.toml`: foundry configuration
 
@@ -29,6 +29,6 @@ There are a few things that MUST be done after a new repo has been created using
 - Things to remove
   - `deployments/`
   - `README.md`
-- Writing docs
-  - Copy and write `README.md` from [README-TEMPLATE.md](README-TEMPLATE.md)
-  - Fill in [GETTING-STARTED.md](GETTING-STARTED.md) for developer guide
+- Writing docs from template
+  - Write `README.md` from [README-TEMPLATE.md](README-TEMPLATE.md)
+  - Write `GETTING-STARTED.md` from [GETTING-STARTED-TEMPLATE.md](GETTING-STARTED-TEMPLATE.md)
