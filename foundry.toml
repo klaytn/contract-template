@@ -17,5 +17,5 @@ eth_rpc_url = 'http://127.0.0.1:8551'
 [rpc_endpoints]
 cypress = 'https://archive-en.cypress.klaytn.net'
 baobab = 'https://archive-en.baobab.klaytn.net'
-local = 'http://127.0.0.1:8545'
+localhost = 'http://127.0.0.1:8545'
 homi = 'http://127.0.0.1:8551'
