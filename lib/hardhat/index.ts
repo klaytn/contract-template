@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-async function setNumbers(counter: ethers.Contract, numList?: BigInt[]) {
+async function setNumbers(counter: ethers.Contract, numList?: bigint[]) {
   if (numList === undefined) {
     return;
   }
