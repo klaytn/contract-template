@@ -32,7 +32,7 @@ npm install @klaytn/contract-template
 import { Counter } from "@klaytn/contract-template";
 
 async function main() {
-  console.log(Counter.abi, Counter.address);
+  console.log(Counter.address, Counter.abi.substring(0, 16));
 }
 
 // We recommend this pattern to be able to use async/await everywhere

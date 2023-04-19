@@ -20,7 +20,7 @@ npm install %%your package%%
 import { %%your contract%% } from "%%your package%%";
 
 async function main() {
-  console.log(%%your contract%%.abi, %%your contract%%.address);
+  console.log(%%your contract%%.address, %%your contract%%.abi.substring(0,16));
 }
 
 // We recommend this pattern to be able to use async/await everywhere
