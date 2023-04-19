@@ -59,13 +59,6 @@ const config: HardhatUserConfig = {
   paths: {
     deployments: "deployments",
   },
-  external: {
-    // importing hardhat-deploy from other packages
-    deployments: {
-      baobab: ["@klaytn/contract-template/dist/export/baobab"],
-      cypress: ["@klaytn/contract-template/dist/export/cypress"],
-    },
-  },
 };
 
 export default config;
