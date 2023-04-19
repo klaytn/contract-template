@@ -16,6 +16,8 @@ There are a few things that MUST be done after a new repo has been created using
 
 ## Quickstart
 
+See [GETTING-STARTED](GETTING-STARTED.md) for details.
+
 ### Prerequisites
 
 From your hardhat project, run:
