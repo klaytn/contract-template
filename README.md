@@ -28,40 +28,11 @@ npm install @klaytn/contract-template
 
 ### Import abi, address from typescript/javascript
 
-First, import this package in your `hardhat.config.js`:
-
-```javascript
-require("@klaytn/contract-template");
-```
-
-Or if you use TypeScript, import the plugin in your`hardhat.config.ts`:
-
 ```typescript
-import "@klaytn/contract-template";
-```
-
-Also, in your `config` field in `hardhat.config.ts` or `hardhat.config.js`, add the following:
-
-```json
-{
-  "external": {
-    "deployments": {
-      "baobab": ["@klaytn/contract-template/dist/export/baobab"],
-      "cypress": ["@klaytn/contract-template/dist/export/cypress"]
-    }
-  }
-}
-```
-
-Then, from your script:
-
-```typescript
-import { ethers } from "hardhat";
 import { Counter } from "@klaytn/contract-template";
 
 async function main() {
-  const Contract = await deployments.get("Counter");
-  console.log(Contract.abi, Contract.address);
+  console.log(Counter.abi, Counter.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
