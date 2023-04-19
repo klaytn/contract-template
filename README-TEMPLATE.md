@@ -34,5 +34,5 @@ main().catch((error) => {
 ### Import from solidity
 
 ```sol
-import "%%your package%%/contracts/Counter.sol";
+import "%%your package%%/contracts/%%your contract%%.sol";
 ```
