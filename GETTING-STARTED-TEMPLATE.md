@@ -1,6 +1,6 @@
 # Getting Started
 
-PLEASE REPLACE %%name%% ACCORDINGLY (also remove this statement)
+PLEASE REPLACE %%your ~~%% ACCORDINGLY (also remove this statement)
 
 ## Guide For Development
 

@@ -1,69 +1,55 @@
 # example-contract
 
-<_A one line description of the contracts_>
+PLEASE REPLACE %%your ~~%% ACCORDINGLY (also remove this statement)
 
-Example contract for demo
+This contract %%your description%%.
 
-## What
+## Quickstart
 
-<_A longer, one paragraph, description of the plugin_>
+### Prerequisites
 
-This is to demonstrate how example contracts can be used.
-For details, refer to [getting started](./GETTING-STARTED.md).
-
-## Installation
-
-<_A step-by-step guide on how to install the plugin_>
+From your hardhat project, run:
 
 ```bash
-npm install @klaytn/contract-template
+npm install %%your package%%
 ```
 
-Import the plugin in your `hardhat.config.js`:
+### Import abi, address from typescript/javascript
+
+First, import this package in your `hardhat.config.js`:
 
 ```javascript
-require("@klaytn/contract-template");
+require("%%your package%%");
 ```
 
 Or if you use TypeScript, import the plugin in your`hardhat.config.ts`:
 
 ```typescript
-import "@klaytn/contract-template";
+import "%%your package%%";
 ```
 
-## Usage
-
-<_How to use the contract repo from hardhat_>
-
-### From hardhat project
-
-<_How to use the contract repo from hardhat script and contract code_>
-
-#### From script
-
-In your `config` field in `hardhat.config.ts` or `hardhat.config.js`, add the following:
+Also, in your `config` field in `hardhat.config.ts` or `hardhat.config.js`, add the following:
 
 ```json
 {
   "external": {
     "deployments": {
-      "baobab": ["@klaytn/contract-template/dist/export/baobab"],
-      "cypress": ["@klaytn/contract-template/dist/export/cypress"]
+      "baobab": ["%%your package%%/dist/export/baobab"],
+      "cypress": ["%%your package%%/dist/export/cypress"]
     }
   }
 }
 ```
 
+Then, from your script:
+
 ```typescript
 import { ethers } from "hardhat";
-import { setNumbers } from "@klaytn/contract-template";
+import { %%your function%% } from "%%your package%%";
 
 async function main() {
-  const Counter = await deployments.get("Counter");
-  const counter = await ethers.getContractAt(Counter.abi, Counter.address);
-
-  console.log("number", await counter.number());
-  await setNumbers(counter, [100000000000000000000000000000000000000n, 200n]);
+    const Contract = await deployments.get("%%your contract%%");
+    console.log(Contract.abi, Contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -74,8 +60,8 @@ main().catch((error) => {
 });
 ```
 
-#### From contract code
+### Import from solidity
 
 ```sol
-import "@klaytn/contract-template/contracts/Counter.sol";
+import "%%your package%%/contracts/Counter.sol";
 ```

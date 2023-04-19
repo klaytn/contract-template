@@ -10,6 +10,46 @@
 - Deploy: deploy contracts on-chain
 - Publish: publish library and deployments
 
+## Quickstart
+
+### Prerequisites
+
+```bash
+npm install
+
+# install foundry (https://getfoundry.sh/)
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+### Run
+
+To Build & Test,
+
+```bash
+npx hardhat compile
+
+npx hardhat test
+forge test
+
+npx hardhat coverage
+forge coverage
+
+# run scripts
+forge script script/Counter.s.sol
+forge script script/Counter.s.sol --rpc-url baobab
+```
+
+To deploy on local network, run `anvil` (or `npx hardhat node`) from another window and then continue.
+
+```bash
+# WARNING: this PRIVATE_KEY is well known! do not use for production!
+export PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+
+npx hardhat deploy --network localhost --reset
+npx hardhat call Counter number --network localhost # available via hardhat-utils plugin
+npx hardhat run script/counter_inc.ts --network localhost
+```
+
 ### Compile
 
 All contracts in [contracts/](contracts/) directory are compiled.
