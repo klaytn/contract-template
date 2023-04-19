@@ -1,34 +1,80 @@
 # Contract-template
 
 This template provides a template for contract development and operation, including tools and conventions.
-These are recommended and not mandatory.
 If you have a suggestion, please make a PR to the template.
 
-## Overview
+## Quickstart
 
-### Directory Structure
+### Prerequisites
 
-The directory structure of this template is as follows:
+```bash
+npm install
 
-- `contracts/`: solidity contracts
-- `deploy/`: deployment scripts
-- `deployments/`: hardhat-deploy files
-- `lib/`: library functions to be published to NPM
-- `script/`: scripts to interact with contracts
-- `test/`: unit tests
-- `GETTING-STARTED-TEMPLATE.md`: developer guide template
-- `README-TEMPLATE.md`: user guide template
-- `hardhat.config.ts`: hardhat configuration
-- `foundry.toml`: foundry configuration
+# install foundry (https://getfoundry.sh/)
+curl -L https://foundry.paradigm.xyz | bash
+```
 
-## Must-do After Repo Creation
+### Run
+
+To Build & Test,
+
+```bash
+npx hardhat compile
+
+npx hardhat test
+forge test
+
+npx hardhat coverage
+forge coverage
+
+# run scripts
+forge script script/Counter.s.sol
+forge script script/Counter.s.sol --rpc-url baobab
+```
+
+To deploy on local network, run `anvil` (or `npx hardhat node`) from another window and then continue.
+
+```bash
+# WARNING: this PRIVATE_KEY is well known! do not use for production!
+export PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+
+npx hardhat deploy --network localhost --reset
+npx hardhat call Counter number --network localhost # available via hardhat-utils plugin
+npx hardhat run script/counter_inc.ts --network localhost
+```
+
+For detailed walkthrough, see [GETTING-STARTED](./GETTING-STARTED.md).
+
+## What's Included?
+
+Tools
+
+- [hardhat](https://hardhat.org/): Contract dev tool
+- [foundry](https://github.com/foundry-rs/foundry): Contract dev tool
+- [hardhat-utils](https://github.com/klaytn/hardhat-utils): Hardhat plugin
+- [eslint](https://eslint.org/): typescript linter
+- [solhint](https://github.com/protofire/solhint): solidity linter
+- [prettier](https://prettier.io/): markdown, typescript formatter
+- [husky](https://github.com/typicode/husky): git hook tool
+- Github actions
+
+Files
+
+- Sample contracts in `contracts/`
+- Sample [hardhat-deploy](https://github.com/wighawag/hardhat-deploy) scripts in `deploy/`
+- Sample library functions in `lib/`
+- Sample scripts in `script/`
+- Sample tests in `test/`
+- Document templates (`README-TEMPLATE.md`, `GETTING-STARTED-TEMPLATE.md`)
+- Sample configurations (`hardhat.config.ts`, `foundry.toml`)
+
+## After clone
 
 There are a few things that MUST be done after a new repo has been created using this template.
 
 - Update `package.json` by running `npm init`
 - Things to remove
   - `deployments/`
-  - `README.md`
 - Writing docs from template
-  - Write `README.md` from [README-TEMPLATE.md](README-TEMPLATE.md)
-  - Write `GETTING-STARTED.md` from [GETTING-STARTED-TEMPLATE.md](GETTING-STARTED-TEMPLATE.md)
+  - Overwrite `README.md` from [README-TEMPLATE.md](README-TEMPLATE.md)
+  - Overwrite `GETTING-STARTED.md` from [GETTING-STARTED-TEMPLATE.md](GETTING-STARTED-TEMPLATE.md)

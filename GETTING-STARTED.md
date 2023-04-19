@@ -1,7 +1,5 @@
 # Getting Started
 
-PLEASE REPLACE %%name%% ACCORDINGLY (also remove this statement)
-
 ## Guide For Development
 
 - Compile
@@ -79,10 +77,10 @@ It runs scripts in [deploy/](deploy/) directory and saves the result on `deploym
 
 Try running the command again. It will reuse the contracts if previous deployments are found.
 
-By default, this runs all scripts in [deploy/](deploy/). To run specific ones, we need to specify "tags" in the deploy script. For example, in case of %%your script%%:
+By default, this runs all scripts in [deploy/](deploy/). To run specific ones, we need to specify "tags" in the deploy script. For example, in case of [deploy/deploy_counter.ts](deploy/deploy_counter.ts):
 
 ```
-func.tags = ["%%your contract%%"];
+func.tags = ["Counter"];
 ```
 
 Then run:
@@ -136,20 +134,32 @@ See operation guide for deployment on Baobab.
 ### Library
 
 Functions that can be reused in tests/scripts need to be in the library.
-For example, %%your description%%.
+For example, we can create a function that calls multiple `counter.setNumber(x)` in [lib/hardhat/index.ts](lib/hardhat/index.ts):
 
 ```typescript
-%%your script%%
+async function setNumbers(counter: ethers.Contract, numList?: BigInt[]) {
+  if (numList === undefined) {
+    return;
+  }
+  for (const num of numList) {
+    console.log("========================");
+    console.log(`#${num}`);
+    console.log("Setting number:", num);
+    let tx = await counter.setNumber(num);
+    await tx.wait();
+    console.log("number set:", await counter.number());
+  }
+}
 ```
 
 Then, we can use it from tests/scripts:
 
 ```typescript
-import { %%your function%% } from "../lib";
+import { setNumbers } from "../lib";
 ...
 ```
 
-### Deployment
+### Deploy
 
 You need to create a network label for each deployment purpose.
 For example, if we need one for QA on Baobab, append to networks in `hardhat.config.ts`:
@@ -179,25 +189,25 @@ To deploy:
 
 ```bash
 export PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
-npx hardhat deploy --network baobab-qa --tags %%your contract%%
+npx hardhat deploy --network baobab-qa --tags Counter
 ```
 
 To send transactions:
 
 ```bash
-export CONTRACT=$(cat deployments/baobab-qa/%%your contract%%.json | jq -r .address)
-forge script %%your script%% --rpc-url baobab-qa --private-key $PRIVATE_KEY --broadcast
+export COUNTER=$(cat deployments/baobab-qa/Counter.json | jq -r .address)
+forge script script/Counter.s.sol --rpc-url baobab-qa --private-key $PRIVATE_KEY --broadcast
 # or
-npx hardhat run %%your script%% --network baobab-qa
+npx hardhat run script/counter_inc.ts --network baobab-qa
 ```
 
-### Verification
+#### Verification
 
 Upload the following file to [scope](https://scope.klaytn.com/) or [finder](https://www.klaytnfinder.io/):
 
 ```bash
-npx hardhat smart-flatten %%your contract%%
-cat artifacts/%%your flattened contract%% | pbcopy
+npx hardhat smart-flatten contracts/Counter.sol
+cat artifacts/Counter.flat.sol | pbcopy
 ```
 
 ### Publish
@@ -218,11 +228,11 @@ npm publish
 After publishing, users can use the library functions as follows:
 
 ```typescript
-import { %%your function%% } from "@klaytn/contract-template";
+import { setNumbers } from "@klaytn/contract-template";
 ...
 ```
 
-See %%your script%% for details.
+See [script/counter_setnums.ts](script/counter_setnums.ts) for details.
 
 ## Configuration
 
@@ -231,12 +241,12 @@ This template ships default configurations. However, if you need to change it, h
 Here are the list of configurable files:
 
 - `package.json`: package info
-  - necessary information must be set by running `npm init`
+  - necessary information must be updated by running `npm init` (as in [this section](#must-do-after-repo-creation))
   - others (files, scripts, etc.) can be updated manually
 - `hardhat.config.ts` (please sync `foundry.toml` as well)
   - `defaultKey`: default key to be used if `env.PRIVATE_KEY` is empty. Default is the [well known key](https://hardhat.org/hardhat-network/docs/reference#accounts)
   - `network`: list of networks. Can be selected with `npx hardhat --network` flag. These can contain tags depending on the deployment purpose, such as `baobab-qa`
-  - `namedAccounts`: accounts for `getNamedAccounts()`
+  - `namedAccounts`: accounts for `getNamedAccounts()` (see [deploy/deploy_lock.ts](deploy/deploy_lock.ts))
   - `etherscan`: required for etherscan-verify
   - `dodoc`: required for hardhat-utils
   - `paths`: required for hardhat-deploy
