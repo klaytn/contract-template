@@ -1,6 +1,6 @@
 # example-contract
 
-PLEASE REPLACE %%your ~~%% ACCORDINGLY (also remove this statement)
+PLEASE REPLACE `%%your ~~%%` ACCORDINGLY (also remove this statement)
 
 This contract %%your description%%.
 
