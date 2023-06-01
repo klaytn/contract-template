@@ -1,7 +1,7 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-deploy";
 import "@nomicfoundation/hardhat-toolbox";
-import "@blukat29/hardhat-utils";
+import "@klaytn/hardhat-utils";
 import "@primitivefi/hardhat-dodoc";
 import * as dotenv from "dotenv";
 
