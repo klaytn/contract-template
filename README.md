@@ -10,6 +10,7 @@ There are a few things that MUST be done after a new repo has been created using
 - Update `package.json` by running `npm init`
 - Things to remove
   - `deployments/`
+  - `lib/hardhat/index.ts`
 - Writing docs from template
   - Overwrite `README.md` from [README-TEMPLATE.md](README-TEMPLATE.md)
   - Overwrite `GETTING-STARTED.md` from [GETTING-STARTED-TEMPLATE.md](GETTING-STARTED-TEMPLATE.md)
