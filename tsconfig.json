@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["deploy/**/*", "export/**/*", "lib/**/*", "script/**/*"],
+  "include": ["deploy/**/*", "export/**/*", "lib/**/*", "script/**/*", "test/**/*"],
   "exclude": ["dist", "node_modules"],
   "files": ["./hardhat.config.ts"]
 }
