@@ -1,5 +1,46 @@
-import { deployments, ethers, config } from "hardhat";
+import { deployments, ethers, config, getChainId } from "hardhat";
 import { Wallet as KlaytnWallet } from "@klaytn/ethers-ext";
+import { normalizeHardhatNetworkAccountsConfig } from "hardhat/internal/core/providers/util";
+
+async function getKlaytnSigners(): KlaytnWallet[] {
+  // const accounts = normalizeHardhatNetworkAccountsConfig(config.networks.hardhat.accounts);
+  let accounts;
+  let url;
+  for (const network in config.networks) {
+    if (
+      config.networks[network].chainId != undefined &&
+      String(config.networks[network].chainId) == (await getChainId())
+    ) {
+      accounts = config.networks[network].accounts;
+      url = config.networks[network].url;
+    }
+  }
+
+  if (accounts == undefined || url == undefined) {
+    throw new Error(`Check Hardhat networks config has url, chainId, and accounts info.`);
+  }
+
+  const privateKeys = normalizeHardhatNetworkAccountsConfig(accounts);
+  // input:
+  // [ "0xaaaa..", "0xbbbb.." ] OR
+  // {
+  //     mnemonic: "test test test test test test test test test test test junk",
+  //     path: "m/44'/60'/0'/0",
+  //     initialIndex: 0,
+  //     count: 20,
+  //     passphrase: "",
+  // }
+
+  const provider = new ethers.providers.JsonRpcProvider(url);
+
+  const signers: KlaytnWallet[] = [];
+  for (let i = 0; i < privateKeys.length; i++) {
+    if (privateKeys[i]) {
+      signers.push(await new KlaytnWallet(privateKeys[i], provider));
+    }
+  }
+  return signers;
+}
 
 async function main() {
   const Counter = await deployments.get("Counter");
@@ -7,29 +48,24 @@ async function main() {
   console.log("Using contract at:", Counter.address);
   console.log("number before increment:", await counter.number());
 
-  const provider = new ethers.providers.JsonRpcProvider("https://public-en-baobab.klaytn.net");
+  const signers: KlaytnWallet[] = await getKlaytnSigners();
 
-  const accounts = config.networks.baobab.accounts;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const sender = new KlaytnWallet(accounts[0], provider);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const feePayer = new KlaytnWallet(accounts[1], provider);
+  const sender = signers[0];
+  const feePayer = signers[1];
 
   const fields = await counter.populateTransaction.increment();
   // {
   //   data: '0xd09de08a',
   //   to: '0xa9eF4a5BfB21e92C06da23Ed79294DaB11F5A6df',
-  //   from: '0x3208ca99480F82bfE240cA6bc06110CD12Bb6366'
   // }
 
   const tx = {
     type: 0x31,
     to: fields.to,
     value: 0,
-    from: fields.from,
+    from: await sender.getAddress(),
     input: fields.data,
+    gasLimit: 40100,
   };
 
   const populatedTx = await sender.populateTransaction(tx);
@@ -41,7 +77,7 @@ async function main() {
 
   // feePayer
   const decodedTx = feePayer.decodeTxFromRLP(senderTxHashRLP);
-  decodedTx.feePayer = feePayer.getAddress();
+  decodedTx.feePayer = await feePayer.getAddress();
   console.log(decodedTx);
 
   const sentTx = await feePayer.sendTransactionAsFeePayer(decodedTx);
