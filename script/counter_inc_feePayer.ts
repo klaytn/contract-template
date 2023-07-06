@@ -78,13 +78,9 @@ async function main() {
   // feePayer
   const decodedTx = feePayer.decodeTxFromRLP(senderTxHashRLP);
   decodedTx.feePayer = await feePayer.getAddress();
-  console.log(decodedTx);
-
   const sentTx = await feePayer.sendTransactionAsFeePayer(decodedTx);
-  console.log("sentTx", sentTx);
-
-  const rc = await sentTx.wait();
-  console.log("receipt", rc);
+  await sentTx.wait();
+  console.log("sending FeePayer transaction", "sender", sender.address, "feePayer", feePayer.address);
 
   console.log("number after increment:", await counter.number());
 }
