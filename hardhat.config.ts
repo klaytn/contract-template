@@ -3,10 +3,11 @@ import "hardhat-deploy";
 import "@nomicfoundation/hardhat-toolbox";
 import "@klaytn/hardhat-utils";
 import "@primitivefi/hardhat-dodoc";
-import * as dotenv from "dotenv";
 
 // the first key of test-junk
-const defaultKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+const defaultKey = "0xb3cf575dea0081563fe5482de2fe4425e025502b1f4ae7e02b2540ac0a5beda1";
+const defaultKey2 = "0x1768a169e38a01fcbaa29a07dbd2353448011421b5406931e80ea6a83c19b69c";
+const defaultKey3 = "0xffafc26ddf1f5a1bc583ee2c6be5070ab47312708008029be0650271636380f4";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -21,7 +22,7 @@ const config: HardhatUserConfig = {
     baobab: {
       url: process.env.BAOBAB_URL || "https://archive-en.baobab.klaytn.net",
       chainId: 1001,
-      accounts: [process.env.PRIVATE_KEY || defaultKey],
+      accounts: [process.env.PRIVATE_KEY || defaultKey, defaultKey2, defaultKey3],
       live: true,
       saveDeployments: true,
     },

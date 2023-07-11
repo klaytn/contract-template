@@ -1,46 +1,6 @@
-import { deployments, ethers, config, getChainId } from "hardhat";
+import { deployments, ethers } from "hardhat";
 import { Wallet as KlaytnWallet } from "@klaytn/ethers-ext";
-import { normalizeHardhatNetworkAccountsConfig } from "hardhat/internal/core/providers/util";
-
-async function getKlaytnSigners(): KlaytnWallet[] {
-  // const accounts = normalizeHardhatNetworkAccountsConfig(config.networks.hardhat.accounts);
-  let accounts;
-  let url;
-  for (const network in config.networks) {
-    if (
-      config.networks[network].chainId != undefined &&
-      String(config.networks[network].chainId) == (await getChainId())
-    ) {
-      accounts = config.networks[network].accounts;
-      url = config.networks[network].url;
-    }
-  }
-
-  if (accounts == undefined || url == undefined) {
-    throw new Error(`Check Hardhat networks config has url, chainId, and accounts info.`);
-  }
-
-  const privateKeys = normalizeHardhatNetworkAccountsConfig(accounts);
-  // input:
-  // [ "0xaaaa..", "0xbbbb.." ] OR
-  // {
-  //     mnemonic: "test test test test test test test test test test test junk",
-  //     path: "m/44'/60'/0'/0",
-  //     initialIndex: 0,
-  //     count: 20,
-  //     passphrase: "",
-  // }
-
-  const provider = new ethers.providers.JsonRpcProvider(url);
-
-  const signers: KlaytnWallet[] = [];
-  for (let i = 0; i < privateKeys.length; i++) {
-    if (privateKeys[i]) {
-      signers.push(await new KlaytnWallet(privateKeys[i], provider));
-    }
-  }
-  return signers;
-}
+import "@klaytn/hardhat-utils";
 
 async function main() {
   const Counter = await deployments.get("Counter");
@@ -48,10 +8,11 @@ async function main() {
   console.log("Using contract at:", Counter.address);
   console.log("number before increment:", await counter.number());
 
-  const signers: KlaytnWallet[] = await getKlaytnSigners();
+  const provider = new ethers.providers.JsonRpcProvider(hre.network.config.url);
+  const accounts = await hre.ethers.getWallets();
 
-  const sender = signers[0];
-  const feePayer = signers[1];
+  const sender = new KlaytnWallet(accounts[0].privateKey, provider);
+  const feePayer = new KlaytnWallet(accounts[1].privateKey, provider);
 
   const fields = await counter.populateTransaction.increment();
   // {
