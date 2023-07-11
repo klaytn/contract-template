@@ -5,9 +5,8 @@ import "@klaytn/hardhat-utils";
 import "@primitivefi/hardhat-dodoc";
 
 // the first key of test-junk
-const defaultKey = "0xb3cf575dea0081563fe5482de2fe4425e025502b1f4ae7e02b2540ac0a5beda1";
-const defaultKey2 = "0x1768a169e38a01fcbaa29a07dbd2353448011421b5406931e80ea6a83c19b69c";
-const defaultKey3 = "0xffafc26ddf1f5a1bc583ee2c6be5070ab47312708008029be0650271636380f4";
+const defaultKey = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
+const defaultKey2 = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -22,7 +21,7 @@ const config: HardhatUserConfig = {
     baobab: {
       url: process.env.BAOBAB_URL || "https://archive-en.baobab.klaytn.net",
       chainId: 1001,
-      accounts: [process.env.PRIVATE_KEY || defaultKey, defaultKey2, defaultKey3],
+      accounts: [process.env.PRIVATE_KEY || defaultKey, defaultKey2],
       live: true,
       saveDeployments: true,
     },
