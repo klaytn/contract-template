@@ -5,8 +5,8 @@ import "@klaytn/hardhat-utils";
 import "@primitivefi/hardhat-dodoc";
 
 // the first key of test-junk
-const defaultKey = "0x0e4ca6d38096ad99324de0dde108587e5d7c600165ae4cd6c2462c597458c2b8";
-const defaultKey2 = "0x9435261ed483b6efa3886d6ad9f64c12078a0e28d8d80715c773e16fc000cff4";
+const defaultKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+const defaultKey2 = "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d";
 
 const config: HardhatUserConfig = {
   solidity: {
