@@ -43,7 +43,7 @@ async function main() {
 
   const sentTx = await feePayer.sendTransactionAsFeePayer(decodedTx);
   await sentTx.wait();
-  console.log("sending FeePayer transaction", "sender", sender.address, "feePayer", feePayer.address);
+  console.log("Fee delegated transaction", "sender", sender.address, "feePayer", feePayer.address);
 
   console.log("number after increment:", await counter.number());
 }
