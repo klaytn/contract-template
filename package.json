@@ -39,7 +39,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@klaytn/hardhat-utils": "^0.0.5",
+    "@klaytn/ethers-ext": "^0.9.0-beta",
     "@primitivefi/hardhat-dodoc": "^0.2.3",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
@@ -56,6 +56,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@klaytn/hardhat-utils": "^0.0.8",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "dotenv": "^16.0.3"
   }
