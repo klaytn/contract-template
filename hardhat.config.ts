@@ -40,7 +40,7 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       url: "http://127.0.0.1:8545",
-      accounts: [process.env.PRIVATE_KEY || defaultKey],
+      accounts: [process.env.PRIVATE_KEY || defaultKey, defaultKey2],
       live: false,
       saveDeployments: true,
     },
