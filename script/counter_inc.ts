@@ -6,7 +6,7 @@ async function main() {
   console.log("Using contract at:", Counter.address);
   console.log("number before increment:", await counter.number());
 
-  let tx = await counter.increment();
+  const tx = await counter.increment();
   await tx.wait();
 
   console.log("number after increment:", await counter.number());
