@@ -1,5 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-deploy";
+import "@openzeppelin/hardhat-upgrades";
 import "@nomicfoundation/hardhat-toolbox";
 import "@klaytn/hardhat-utils";
 import "@primitivefi/hardhat-dodoc";
