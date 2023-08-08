@@ -18,7 +18,6 @@ contract CounterUpgradeableV2 {
 
     function initialize(uint256 _number) public intializer {
         number = _number;
-        setTime = block.timestamp;
     }
 
     function setNumber(uint256 newNumber) public {
