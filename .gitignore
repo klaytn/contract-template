@@ -2,6 +2,7 @@
 # Compiler files
 cache/
 out/
+.openzeppelin/
 
 # Development broadcast logs
 !/broadcast
