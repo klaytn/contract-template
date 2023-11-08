@@ -56,7 +56,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@klaytn/hardhat-utils": "^0.0.9",
+    "@klaytn/hardhat-utils": "^0.0.11",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "dotenv": "^16.0.3"
   }
