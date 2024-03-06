@@ -45,12 +45,35 @@ const config: HardhatUserConfig = {
       saveDeployments: true,
     },
   },
+  etherscan: {
+    apiKey: {
+      cypress: "unnecessary",
+      baobab: "unnecessary",
+    },
+    customChains: [
+      {
+        network: "cypress",
+        chainId: 8217,
+        urls: {
+          apiURL: "https://api-cypress.klaytnscope.com/api",
+          browserURL: "https://klaytnscope.com",
+        },
+      },
+      {
+        network: "baobab",
+        chainId: 1001,
+        urls: {
+          apiURL: "https://api-baobab.klaytnscope.com/api",
+          browserURL: "https://baobab.klaytnscope.com",
+        },
+      },
+    ],
+  },
   namedAccounts: {
     deployer: {
       default: 0, // here this will by default take the first account as deployer
     },
   },
-  etherscan: { apiKey: "DUMMY" },
   dodoc: {
     exclude: ["hardhat/", "lib/"],
     runOnCompile: false,
